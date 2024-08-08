@@ -1,7 +1,7 @@
 // Firebase initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, update, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
   // My web app's Firebase configuration
 const firebaseConfig =
@@ -47,4 +47,5 @@ function checkUserLoggedIn()
         }
   });
 }
+
 checkUserLoggedIn();
