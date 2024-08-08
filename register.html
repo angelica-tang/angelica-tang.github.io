@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+  <!--Name: Angelica Tang
+      Description: This is a register/login project that will also allow the user to create a new password by email if they have forgotten their old own. -->
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <style>
+    body {
+      background-color: lightslategrey;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #form {
+      background-color: white;
+      border: 1px solid black;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 5px 20px;
+      width: 350px;
+      overflow: scroll;
+      }
+    #name, #email, #password {
+        display: flex;
+        margin-bottom: 10px;
+      }
+    #register-btn {
+      margin: 10px 5px 2px 5px;
+      padding: 5px 20px;
+      width: 25%;
+      background-color: lightgrey;
+      border: none;
+      border-radius: 10px;
+    }
+    #register-btn:hover {
+      cursor:pointer;
+    }
+    
+  </style>
+</head>
+<body>
+ <h1>Account Register</h1>
+  <div id="form">
+    <h2>Register</h2>
+      <input type="text" id="name" placeholder="Name">
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <div id='msg'></div>
+      <div id="button-container">
+      <button id="register-btn"> Register </button>
+        </div>
+      
+      <p id="no-acc">Already have an account? <a href="index.html">Login here</a>.</p>
+      </div>
+      
+  <script type="module" src="register.js"></script>
+</body>
+</html>
+
+
