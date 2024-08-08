@@ -43,6 +43,7 @@ function checkUserLoggedIn()
               });
       } else
         {
+            msg.innerHTML = `redirecting...`;
             window.location.href = "index.html";
         }
   });
