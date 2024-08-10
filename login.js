@@ -20,8 +20,9 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 
 const loginbtn = document.getElementById("login-btn");
+// logs the user in if all provided fields are valid and match the database or asks them to refill.
 loginbtn.addEventListener("click", () =>
-  {
+{
   
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
@@ -42,6 +43,7 @@ loginbtn.addEventListener("click", () =>
         return;
       }
 
+  // verifies that the email and password given are also stored in the database to allow the user to sign in.
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) =>
     {
@@ -62,29 +64,34 @@ loginbtn.addEventListener("click", () =>
               alert("User data not found.");
             }
         })
-        .catch((error) => {
+        .catch((error) => 
+          {
           var error_message = error.message;
           console.log(error_message);
           return;
-        });
+          });
     })
-    .catch((error) => {
+    .catch((error) => 
+      {
       const errorMessage = error.message;
       console.log(errorMessage);
-    });
-  });
+      });
+});
 
+// checks if the email is valid so that they can be emailed when needed.
 function validate_email(email)
 {
   const rgx = /^[^@]+@\w+(\.\w+)+\w$/;
   return rgx.test(email);
 }
 
+// checks if the password is considered safe enough for the user to use.
 function validate_password(pass)
 {
   return pass.length >= 6;
 }
 
+// sends an email to the user where they can create a new password if they forgot their old one.
 const reset = document.getElementById('reset');
 reset.addEventListener('click', function(e)
   {
@@ -105,6 +112,7 @@ reset.addEventListener('click', function(e)
   }
 )
 
+// checks if the user is logged in and either redirects or welcomes them to only allow signed in users access to the account screen.
 function checkUserLoggedIn()
 {
   onAuthStateChanged(auth, (user) =>
@@ -125,9 +133,7 @@ function checkUserLoggedIn()
               {
                   console.error("Error fetching user data:", error);
               });
-      } else
-        {
-        }
+      } 
   });
 }
-checkUserLoggedIn();
+checkUserLoggedIn(); // calls the function

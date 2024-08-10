@@ -3,6 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/fireba
 import { getDatabase, ref, update, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
+  // My web app's Firebase configuration
 const firebaseConfig = 
 {
   apiKey: "AIzaSyB5_jT54SCi46WC-T-xlPzG-nWvQxSe8-s",
@@ -20,6 +21,7 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 
 const registerbtn = document.getElementById("register-btn");
+// Creates a new account so the user can login instead in the future.
 registerbtn.addEventListener("click", () =>
   {
     const nameInput = document.getElementById('name');
@@ -72,23 +74,27 @@ registerbtn.addEventListener("click", () =>
         console.error("Error registering user:", error);
       });
   });
-
+  
+// checks if the email is valid so that they can be emailed when needed.
 function validate_email(email)
 {
   const rgx = /^[^@]+@\w+(\.\w+)+\w$/;
   return rgx.test(email);
 }
 
+// checks if the password is considered safe enough for the user to use.
 function validate_password(pass)
 {
   return pass.length >= 6;
 }
 
-function validate_name(field)
+// name that is used once the user logs in.
+function validate_name(name)
 {
-  return field && field.trim().length > 0;
+  return name && name.trim().length > 0;
 }
 
+// checks if the user is logged in and either redirects or welcomes them to only allow signed in users access to the account screen.
 function checkUserLoggedIn()
 {
   onAuthStateChanged(auth, (user) =>
@@ -112,4 +118,4 @@ function checkUserLoggedIn()
       } 
   });
 }
-checkUserLoggedIn();
+checkUserLoggedIn(); // calls the function
