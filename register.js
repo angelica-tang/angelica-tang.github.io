@@ -1,7 +1,7 @@
 // Firebase initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, update } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getDatabase, ref, update, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
 const firebaseConfig = 
 {
@@ -22,19 +22,30 @@ const auth = getAuth(app);
 const registerbtn = document.getElementById("register-btn");
 registerbtn.addEventListener("click", () =>
   {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const msg = document.getElementById("msg");
 
-    if (!validate_email(email) || !validate_password(password))
+    if (!validate_email(email))
     {
-      msg.innerHTML = `Password must be at least 6 characters and email must be valid.`;
+      msg.innerHTML = `Email must be valid.`;
+      emailInput.focus();
       return;
     }
+    if (!validate_password(password))
+      {
+        msg.innerHTML = `Password must be at least 6 characters.`;
+        passwordInput.focus();
+        return;
+      }
     if (!validate_name(name))
     {
       msg.innerHTML = `Please enter your name`;
+      nameInput.focus();
       return;
     }
     msg.innerHTML = `processing...`;
@@ -98,10 +109,7 @@ function checkUserLoggedIn()
               {
                   console.error("Error fetching user data:", error);
               });
-      } else
-        {
-            window.location.href = "index.html";
-        }
+      } 
   });
 }
 checkUserLoggedIn();

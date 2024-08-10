@@ -1,7 +1,7 @@
 // Firebase initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
   // My web app's Firebase configuration
 const firebaseConfig =
@@ -22,9 +22,9 @@ const msg = document.getElementById('msg');
 
 function checkUserLoggedIn()
 {
-   
   onAuthStateChanged(auth, (user) =>
   {
+    
       if (user)
       {
           const userRef = ref(database, 'users/' + user.uid);
@@ -32,7 +32,9 @@ function checkUserLoggedIn()
           {
               if (snapshot.exists())
               {
-                msg.innerHTML = `Welcome!`;
+                const userData = snapshot.val();
+                const username = userData.name;
+                msg.innerHTML = `Welcome, ${username}!`;
               } else
                 {
                     console.log("No user data found");
@@ -43,10 +45,19 @@ function checkUserLoggedIn()
               });
       } else
         {
-            msg.innerHTML = `redirecting...`;
+            msg.innerHTML = `redirecting to login screen`;
             window.location.href = "index.html";
         }
   });
 }
-
 checkUserLoggedIn();
+
+const sign_out = document.getElementById('sign-out');
+sign_out.addEventListener('click', () => {
+    signOut(auth).then(() => {
+        msg.innerHTML = `logging out...`;
+        window.location.href = "index.html";
+    }).catch((error) => {
+       console.log(error);
+    });
+})

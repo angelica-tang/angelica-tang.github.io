@@ -4,13 +4,27 @@
 <html lang='en'>
 <head>
   <meta charset='utf-8'>
+  <style>
+    * {
+      background-color: pink;
+    }
+    button {
+      background-color: orange;
+      border-radius: 5px;
+      border: none;
+    }
+    button:hover {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
     <h1>Account Page</h1>
-    <span id="msg"></span>
-    <button>Sign Out</button>
-  <script type="module" src="account.js"></script>
+    <div id="msg"></div>
+    <br />
+    <button id="sign-out">Sign Out</button>
 </body>
+  <script type="module" src="account.js"></script>  
 </html>
 
 

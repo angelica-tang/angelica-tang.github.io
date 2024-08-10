@@ -1,7 +1,7 @@
 // Firebase initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, update, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
   // My web app's Firebase configuration
 const firebaseConfig =
@@ -22,15 +22,25 @@ const auth = getAuth(app);
 const loginbtn = document.getElementById("login-btn");
 loginbtn.addEventListener("click", () =>
   {
+  
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const msg = document.getElementById('msg');
   
-  if (validate_email(email) === false || !validate_password(password))
+  if (!validate_password(password))
     {
-      msg.innerHTML = `invalid`;
+      msg.innerHTML = `Invalid password.`;
+      passwordInput.focus();
       return;
     }
+  if (!(validate_email(email)))
+      {
+        msg.innerHTML = `Invalid email.`;
+        emailInput.focus();
+        return;
+      }
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) =>
@@ -106,7 +116,7 @@ function checkUserLoggedIn()
           {
               if (snapshot.exists())
               {
-                window.location.href = "accoount.html";
+                window.location.href = "account.html";
               } else
                 {
                     console.log("No user data found");
@@ -117,7 +127,6 @@ function checkUserLoggedIn()
               });
       } else
         {
-            window.location.href = "index.html";
         }
   });
 }
